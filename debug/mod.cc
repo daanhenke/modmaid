@@ -10,7 +10,7 @@ void LogMemoryHelpers()
   logging::Message("IsValidPointer(\"hi\") = %d", memory::IsValidPointer("hi"));
   logging::Message("IsValidCodePointer(\"hi\") = %d", memory::IsValidCodePointer("hi"));
   logging::Message("IsValidPointer(&modmaid::Initialize) = %d",
-                   memory::IsValidCodePointer(reinterpret_cast<void*>(&Initialize)));
+                   memory::IsValidCodePointer(reinterpret_cast<void*>(&InitializeModMaid)));
 }
 
 void TestReprotect()
@@ -68,7 +68,7 @@ void TestVTableHook()
   VTableStuff::IInterface* iface = new VTableStuff::CImpl();
 
   // Apply the hook
-  auto hook = hooks::RegisterVTableHook(iface, 0, &Test_Original, Test_Hook);
+  auto hook = hooks::RegisterVTableHook(iface, 0, reinterpret_cast<void**>(&Test_Original), Test_Hook);
 
   // Test
   iface->Test("Capturable argument!");
@@ -88,7 +88,7 @@ void TestTrampolineHook()
 
 void OnLoad()
 {
-  modmaid::Initialize();
+  modmaid::InitializeModMaid(modmaid::init::Base | modmaid::init::WindowsConsoleHost);
 
   LogMemoryHelpers();
   TestReprotect();
@@ -98,7 +98,7 @@ void OnLoad()
 
 void OnUnload()
 {
-  modmaid::Exit();
+  logging::Critical("Eyy goodbye");
 }
 
 modmaid::Entrypoint gEntrypoint(OnLoad, OnUnload);

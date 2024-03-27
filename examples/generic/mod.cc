@@ -1,16 +1,20 @@
 #include <modmaid.hh>
-
 using namespace modmaid;
+
+#include <Windows.h>
 
 void OnLoad()
 {
-  modmaid::Initialize();
+  InitializeModMaid(init::Base | init::WindowsConsoleHost);
   logging::Trace("Hello %s", "world!");
+
+  MessageBoxA(nullptr, "Ayy", "lmao", MB_OK);
+  Unload();
 }
 
 void OnUnload()
 {
-  modmaid::Exit();
+  logging::Trace("Goodbye!");
 }
 
-modmaid::Entrypoint gEntrypoint(OnLoad, OnUnload);
+Entrypoint gEntrypoint(OnLoad, OnUnload);

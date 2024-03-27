@@ -10,9 +10,18 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake")
 
 # Add external dependencies
 include(CPM)
-CPMAddPackage(NAME "minhook" GIT_REPOSITORY "https://github.com/TsudaKageyu/minhook" GIT_TAG "master")
+if(WIN32)
+  CPMAddPackage(NAME "minhook" GIT_REPOSITORY "https://github.com/TsudaKageyu/minhook" GIT_TAG "master")
+endif()
+
+# Common definitions
+if(WIN32)
+  add_compile_definitions(OS_WINDOWS)
+elseif(UNIX)
+  add_compile_definitions(OS_UNIX)
+endif()
 
 # Add submodules
-add_subdirectory(library)
+add_subdirectory(modmaid)
 add_subdirectory(examples)
 add_subdirectory(debug)
