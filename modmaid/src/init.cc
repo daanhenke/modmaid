@@ -46,5 +46,7 @@ namespace modmaid
 
       logging::Exit();
     }
+
+    gFlagsForExit = 0;
   }
 }

@@ -68,13 +68,14 @@ void TestVTableHook()
   VTableStuff::IInterface* iface = new VTableStuff::CImpl();
 
   // Apply the hook
-  auto hook = hooks::RegisterVTableHook(iface, 0, reinterpret_cast<void**>(&Test_Original), Test_Hook);
+  auto hook = hooks::RegisterVTableHookFromInstance(iface, 0, reinterpret_cast<void**>(&Test_Original), Test_Hook);
 
   // Test
   iface->Test("Capturable argument!");
 }
 
 size_t (*StringLength_Original)(const char* str) = nullptr;
+
 size_t StringLength_Hook(const char* str)
 {
   return StringLength_Original(str) + 25;
@@ -82,8 +83,11 @@ size_t StringLength_Hook(const char* str)
 
 void TestTrampolineHook()
 {
-  hooks::RegisterTrampolineHook(strlen, reinterpret_cast<void**>(&StringLength_Original), StringLength_Hook);
-  logging::Warning("Calling hooked strlen: %d", strlen("hi"));
+  auto handle = hooks::RegisterTrampolineHook(strlen, reinterpret_cast<void**>(&StringLength_Original),
+                                              StringLength_Hook);
+  logging::Warning("Calling hooked strlen(\"hi\"): %d", strlen("hi"));
+  hooks::UnregisterHook(handle);
+  logging::Warning("Calling unhooked strlen(\"hi\"): %d", strlen("hi"));
 }
 
 void OnLoad()

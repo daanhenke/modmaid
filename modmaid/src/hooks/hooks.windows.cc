@@ -12,10 +12,28 @@ namespace modmaid::hooks
 
     HookHandle RegisterTrampolineHook(void* address, void** original, void* hook)
     {
-        auto res1 = MH_CreateHook(address, hook, original);
-        auto res2 = MH_EnableHook(address);
+        MH_CreateHook(address, hook, original);
+        MH_EnableHook(address);
 
-        // TODO: RETURN HANDLE FOR UNHOOKING
-        return 0;
+        auto handle = AllocateHookHandle();
+        (*GetMap())[handle] =
+        {
+            .Type = HookType::Trampoline,
+            .IsEnabled = true,
+            .TrampolineHook = {
+                .Address = address
+            }
+        };
+
+        return handle;
+    }
+
+    void UnregisterTrampolineHook(void* address)
+    {
+        MH_RemoveHook(address);
+    }
+
+    void ExitArch()
+    {
     }
 }

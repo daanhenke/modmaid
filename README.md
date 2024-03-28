@@ -5,7 +5,8 @@
 # Modmaid
 
 ### TODO
-* Unhooking
+
+* [x] Unhooking
 * Configuration
 * Signature scanning
 * Logging

@@ -1,4 +1,5 @@
 #include <maid/entrypoint.hh>
+#include <maid/init.hh>
 
 namespace modmaid
 {
@@ -21,5 +22,7 @@ namespace modmaid
       UnloadMod();
       IsModLoaded = false;
     }
+
+    ExitModMaid();
   }
 }
