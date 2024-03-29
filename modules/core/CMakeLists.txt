@@ -26,3 +26,4 @@ target_include_directories(_modmaid_core PUBLIC include)
 
 target_link_libraries(_modmaid_core PRIVATE minhook)
 __maid_alias(_modmaid_core)
+__maid_add_tests(modmaid::core)

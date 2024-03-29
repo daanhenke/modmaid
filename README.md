@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="1024" src=".github/splash.png" alt="Logo" />
+  <img width="300" src=".github/splash.png" alt="Logo" />
 </p>
 
 # ModMaid
