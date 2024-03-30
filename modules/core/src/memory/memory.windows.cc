@@ -1,6 +1,7 @@
 #include <modmaid/core/memory.hh>
 
 #include <Windows.h>
+#include <Psapi.h>
 
 namespace modmaid::memory
 {
@@ -48,6 +49,18 @@ namespace modmaid::memory
   void* GetExecutableBase(const char* executableName)
   {
     return GetModuleHandleA(executableName);
+  }
+
+  std::size_t GetExecutableSize(void* executableBase)
+  {
+    MODULEINFO info;
+    if (! GetModuleInformation(GetCurrentProcess(), reinterpret_cast<HMODULE>(executableBase), &info, sizeof(info)))
+    {
+      // TODO: PANIC
+      return 0;
+    }
+
+    return info.SizeOfImage;
   }
 
   std::string GetExecutablePath(void* pointerIntoExecutable)

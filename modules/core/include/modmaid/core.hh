@@ -6,3 +6,5 @@
 #include <modmaid/core/memory.hh>
 #include <modmaid/core/hooks.hh>
 #include <modmaid/core/init.hh>
+#include <modmaid/core/extern_macros.hh>
+#include <modmaid/core/signatures.hh>

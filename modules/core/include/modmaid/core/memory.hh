@@ -27,6 +27,7 @@ namespace modmaid::memory
   };
 
   void* GetExecutableBase(const char* executableName);
+  std::size_t GetExecutableSize(void* executableBase);
   std::string GetExecutablePath(void* pointerIntoExecutable);
 
   template<typename T>

@@ -1,6 +1,7 @@
 function(add_mod TARGET)
   add_library("${TARGET}" SHARED ${ARGN})
   target_link_libraries("${TARGET}" PUBLIC modmaid::core)
+  __maid_use_static_stdlib("${TARGET}")
 endfunction()
 
 function(__maid_alias TARGET)
@@ -19,6 +20,7 @@ macro(__maid_add_tests LIBRARY_TARGET)
   file(GLOB TESTS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cc")
   message(STATUS "Test sources for ${LIBRARY_TARGET}: ${TESTS_SOURCES}")
   add_executable("${TESTS_TARGET}" ${TESTS_SOURCES})
+  __maid_use_static_stdlib("${TESTS_TARGET}")
 
   target_link_libraries("${TESTS_TARGET}"
     PRIVATE
@@ -26,4 +28,12 @@ macro(__maid_add_tests LIBRARY_TARGET)
       "${LIBRARY_TARGET}"
   )
   target_include_directories("${TESTS_TARGET}" PRIVATE "tests")
+endmacro()
+
+macro(__maid_use_static_stdlib TARGET)
+  if(WIN32)
+    set_property(TARGET "${TARGET}" PROPERTY
+        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+    )
+  endif()
 endmacro()
