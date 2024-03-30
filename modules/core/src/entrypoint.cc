@@ -14,15 +14,4 @@ namespace modmaid
       IsModLoaded = true;
     }
   }
-
-  Entrypoint::~Entrypoint()
-  {
-    if (UnloadMod != nullptr && IsModLoaded)
-    {
-      UnloadMod();
-      IsModLoaded = false;
-    }
-
-    ExitModMaid();
-  }
 }

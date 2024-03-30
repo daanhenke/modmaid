@@ -9,7 +9,6 @@ namespace modmaid
   {
   public:
     Entrypoint(LoadMod_t load, UnloadMod_t unload);
-    ~Entrypoint();
 
     LoadMod_t LoadMod;
     UnloadMod_t UnloadMod;

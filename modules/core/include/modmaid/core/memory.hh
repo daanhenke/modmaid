@@ -33,8 +33,11 @@ namespace modmaid::memory
   template<typename T>
   T* TranslateOffset(const char* executableName, const std::size_t offset)
   {
+    auto base = reinterpret_cast<std::uintptr_t>(GetExecutableBase(executableName));
+    if (base == 0) return nullptr;
+
     return reinterpret_cast<T*>(
-      reinterpret_cast<std::uintptr_t>(GetExecutableBase(executableName)) + offset
+      base + offset
     );
   }
 

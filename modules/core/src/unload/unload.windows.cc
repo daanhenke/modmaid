@@ -12,9 +12,10 @@ namespace modmaid
   {
     gEntrypoint.UnloadMod();
     gEntrypoint.IsModLoaded = false;
-    Sleep(2000);
 
+    Sleep(1000);
     ExitModMaid();
+    Sleep(1000);
 
     FreeLibraryAndExitThread(reinterpret_cast<HINSTANCE>(&__ImageBase), 0);
   }
