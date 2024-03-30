@@ -9,12 +9,12 @@ A collection of utilities for game hacking
 
 * Core
   * [x] Unhooking
-  * Signature scanning
+  * [x] Signature scanning
   * Configuration
   * Logging
     * Implement panics and critical errors
     * Add configurable log level
-  * Unit tests
+  * [x] Unit tests
   * Full unix support?!
 
 * GUI

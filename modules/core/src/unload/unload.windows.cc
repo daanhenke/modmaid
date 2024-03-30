@@ -8,14 +8,14 @@ extern "C" IMAGE_DOS_HEADER __ImageBase;
 
 namespace modmaid
 {
-  void UnloadCallback()
+  DWORD UnloadCallback(LPVOID _)
   {
     gEntrypoint.UnloadMod();
     gEntrypoint.IsModLoaded = false;
+    Sleep(2000);
 
     ExitModMaid();
 
-    Sleep(2000);
     FreeLibraryAndExitThread(reinterpret_cast<HINSTANCE>(&__ImageBase), 0);
   }
 
