@@ -19,6 +19,7 @@ include(CPM)
 # Project settings
 __maid_option(MAID_BUILD_TESTS BOOL ON "Build unittests")
 __maid_option(MAID_BUILD_EXAMPLES BOOL ON "Build examples")
+__maid_option(MAID_BUILD_DOCUMENTATION BOOL ON "Build documentation")
 
 # Add external dependencies
 if(WIN32)
@@ -47,4 +48,8 @@ add_subdirectory(modules)
 
 if(MAID_BUILD_EXAMPLES)
   add_subdirectory(examples)
+endif()
+
+if(MAID_BUILD_DOCUMENTATION)
+  include("${CMAKE_CURRENT_SOURCE_DIR}/docs/docs.cmake")
 endif()
