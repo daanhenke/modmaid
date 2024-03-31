@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 project(modmaid)
 
+set(MAID_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
 # Use C++ 20
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -51,5 +53,5 @@ if(MAID_BUILD_EXAMPLES)
 endif()
 
 if(MAID_BUILD_DOCUMENTATION)
-  include("${CMAKE_CURRENT_SOURCE_DIR}/docs/docs.cmake")
+  add_subdirectory(docs)
 endif()

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project>
+  <PropertyGroup>
+    <MaidDotnetBuildDir>$(SolutionDir)/build/dotnet</MaidDotnetBuildDir>
+    <OutputPath>$(MaidDotnetBuildDir)/bin/$(MSBuildProjectName)</OutputPath>
+    <BaseIntermediateOutputPath>$(MaidDotnetBuildDir)/obj/$(MSBuildProjectName)</BaseIntermediateOutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+</Project>

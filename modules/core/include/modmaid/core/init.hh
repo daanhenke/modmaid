@@ -17,6 +17,10 @@ namespace modmaid
         constexpr InitComponent All = Logging | Hooks | Configuration;
     }
 
+    /**
+     * Initializes the core library
+     * @param flags A bitfield specifying which components need to be initialized
+     */
     void InitializeModMaid(InitComponent flags);
     void ExitModMaid();
 
