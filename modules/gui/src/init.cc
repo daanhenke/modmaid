@@ -64,8 +64,11 @@ namespace modmaid::gui
     }
 
     RenderingBackend gRenderingBackend = RenderingBackend::Invalid;
-    void Initialize(RenderingBackend renderingBackend)
+    RenderCallback gRenderCallback = nullptr;
+    void Initialize(RenderCallback renderCallback, RenderingBackend renderingBackend)
     {
+        gRenderCallback = renderCallback;
+
         if (renderingBackend == RenderingBackend::AutoDetect)
         {
             renderingBackend = DetectRenderingApi();

@@ -42,4 +42,4 @@ CPMAddPackage(
 
 list(TRANSFORM IMGUI_SOURCES PREPEND "${imgui_SOURCE_DIR}/")
 target_sources(_modmaid_gui PRIVATE ${IMGUI_SOURCES})
-target_include_directories(_modmaid_gui PRIVATE "${imgui_SOURCE_DIR}" "${imgui_SOURCE_DIR}/backends")
+target_include_directories(_modmaid_gui PUBLIC "${imgui_SOURCE_DIR}" PRIVATE "${imgui_SOURCE_DIR}/backends")

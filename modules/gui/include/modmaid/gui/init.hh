@@ -16,7 +16,9 @@ namespace modmaid::gui
         DirectX12,
     };
 
-    void Initialize(RenderingBackend renderingBackend = RenderingBackend::AutoDetect);
+    using RenderCallback = void (*)();
+    extern RenderCallback gRenderCallback;
+    void Initialize(RenderCallback renderCallback, RenderingBackend renderingBackend = RenderingBackend::AutoDetect);
     void Exit();
 
 #if OS_WINDOWS

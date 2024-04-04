@@ -9,6 +9,22 @@
 using namespace modmaid;
 using namespace std::chrono_literals;
 
+const char* gBanner[] = {
+  "-----------",
+  "Hello World",
+  "-----------",
+};
+
+void RenderUserInterface()
+{
+  ImGui::Begin("Example mod");
+  for (auto& line : gBanner)
+  {
+    ImGui::Text(line);
+  }
+  ImGui::End();
+}
+
 void (*DebugLog_Original)(void*, const char*) = nullptr;
 void DebugLog_Hook(void* unk, const char* message)
 {
@@ -35,7 +51,7 @@ void InputThread()
 void OnLoad()
 {
   InitializeModMaid(init::All | init::WindowsConsoleHost);
-  gui::Initialize();
+  gui::Initialize(RenderUserInterface, gui::RenderingBackend::AutoDetect);
 
   log::Message("Hello world from %s", memory::GetExecutablePath(&OnLoad).c_str());
   log::Message("Finding debug_log...");

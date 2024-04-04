@@ -13,31 +13,10 @@
 #include <imgui_impl_dx11.h>
 #include <imgui_impl_win32.h>
 
+#include <filesystem>
+
 #define GetDX11Export(name) \
     dx::GetExport<decltype(name)*>(D3D11, #name)
-
-const char* gBullshit[] = {
-    "    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠤⠔⠒⠒⠒⠒⠲⠤⣄⡀",
-    "    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠚⠁⠀⢀⣤⣶⣶⣿⣿⣿⣿⣶⣯⣒⠤⣀",
-    "    ⠀⠀⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⢀⣴⣿⣿⣿⣿⠿⠟⠛⠿⠿⣿⣿⣷⡈⠳⡀",
-    "    ⠀⠀⠀⠀⠀⠀⠀⡼⠁⠀⠀⢠⣿⣿⣿⠟⠉⠀⠀⠀⠀⠀⠀⠀⢉⠻⣿⠀⠹⡀",
-    "    ⠀⠀⠀⠀⠀⠀⣼⠇⠀⠀⠀⢾⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⡀⣼⣇⠘⠇⠀⣼⡄",
-    "    ⠀⠀⠀⠀⠀⢸⡹⠀⠀⠀⠀⢸⣿⠁⠀⠀⠀⠀⠀⠀⢀⡄⢀⣾⣿⣿⡆⡀⠀⠈⡇",
-    "    ⠀⠀⠀⠀⠀⢸⠇⢠⠀⠀⠀⠀⠇⠀⠀⠀⢠⠆⠀⣠⠎⣠⣿⣿⣿⣿⣷⢁⠆⠀⡇",
-    "    ⠀⠀⠀⠀⠀⢸⠀⠈⡆⠀⠀⠀⠀⠀⠀⣆⣇⣤⣾⡷⠿⠟⡿⣿⣿⣿⣧⠊⠀⠀⡇",
-    "    ⠀⠀⠀⠀⠀⠀⢇⢣⢡⡠⠀⠀⠀⠀⢰⡿⠋⠈⠀⠀⠀⢠⣾⠈⡻⣿⠁⠀⡀⢀⠇",
-    "    ⠀⠀⠀⠀⠀⠀⠈⠻⢷⡹⣷⣄⡀⡄⢸⣇⡀⠀⠀⠀⢠⣤⠀⢀⣼⣿⡶⣰⣇⠎",
-    "    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⣿⣼⣜⣿⣝⣶⣤⣀⣀⣡⣶⣿⣿⣿⠟⠛⠁",
-    "    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠉⠿⠋",
-    "    ⠀⠀⠀⣠⣶⣿⣿⣦⣤⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⣄⠀⠀⣠⣤⣤⣄",
-    "    ⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣿⣿⣿⣿⣷⣄",
-    "    ⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄",
-    "    ⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
-    "    ⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
-    "    ⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⢿⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
-    "    ⠸⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠮⠷⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿",
-    nullptr
-};
 
 namespace modmaid::gui::dx11
 {
@@ -74,8 +53,6 @@ namespace modmaid::gui::dx11
             auto io = ImGui::GetIO();
             io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
-            static const ImWchar ranges[] = { 0x2800, 0x28FF, 0 };
-            io.Fonts->AddFontFromFileTTF("arial.ttf", 32., nullptr, ranges);
             ImGui::StyleColorsDark();
 
             win32::Initialize(desc.OutputWindow);
@@ -89,16 +66,10 @@ namespace modmaid::gui::dx11
         ImGui_ImplDX11_NewFrame();
         ImGui::NewFrame();
 
-        ImGui::Begin("modmaid");
-        ImGui::TextColored({ 1., 0., 0., 1. }, "This took forever...");
-
-        auto currPointer = gBullshit;
-        while (*currPointer != nullptr)
+        if (gRenderCallback != nullptr)
         {
-            ImGui::TextColored({ 1., 0., 0., 1. }, *currPointer++);
+            gRenderCallback();
         }
-
-        ImGui::End();
 
         ImGui::EndFrame();
         ImGui::Render();
