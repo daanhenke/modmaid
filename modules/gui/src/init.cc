@@ -42,10 +42,6 @@ namespace modmaid::gui
     {
         switch (backend)
         {
-            case RenderingBackend::AutoDetect:
-            case RenderingBackend::Invalid:
-                return "Invalid";
-
             case RenderingBackend::DirectX9:
                 return "DirectX9";
 
@@ -57,6 +53,13 @@ namespace modmaid::gui
 
             case RenderingBackend::DirectX12:
                 return "DirectX12";
+
+            case RenderingBackend::AutoDetect:
+            case RenderingBackend::Invalid:
+                return "Invalid";
+
+            default:
+                return "Unsupported";
         }
     }
 

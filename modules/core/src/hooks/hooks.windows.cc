@@ -12,8 +12,16 @@ namespace modmaid::hooks
 
     HookHandle RegisterTrampolineHook(void* address, void** original, void* hook)
     {
-        MH_CreateHook(address, hook, original);
-        MH_EnableHook(address);
+        auto createStatus = MH_CreateHook(address, hook, original);
+        if (createStatus != MH_OK)
+        {
+            log::Trace("Failed to create trampoline hook @ %llx: %llx", address, createStatus);
+        }
+        auto enableStatus = MH_EnableHook(address);
+        if (enableStatus != MH_OK)
+        {
+            log::Trace("Failed to enable trampoline hook @ %llx: %llx", address, enableStatus);
+        }
 
         auto handle = AllocateHookHandle();
         (*GetMap())[handle] =

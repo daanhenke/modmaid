@@ -1,5 +1,8 @@
 #pragma once
 
+#if OS_WINDOWS
+#include <Windows.h>
+#endif
 
 namespace modmaid::gui
 {
@@ -17,6 +20,12 @@ namespace modmaid::gui
     void Exit();
 
 #if OS_WINDOWS
+    namespace win32
+    {
+        void Initialize(HWND windowHandle);
+        void Exit();
+    }
+
     namespace dx9
     {
         void Initialize();

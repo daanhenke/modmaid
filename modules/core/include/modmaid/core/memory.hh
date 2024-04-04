@@ -2,7 +2,6 @@
 
 #include <cstdint>
 #include <string>
-
 namespace modmaid::memory
 {
   using MemoryProtection_t = std::uint32_t;
@@ -43,7 +42,7 @@ namespace modmaid::memory
 
   void QueryMemory(const void* pointer, MemoryInformation* result);
 
-  void CopyMemory(const void* original, void* destination, std::size_t size);
+  void Copy(const void* original, void* destination, std::size_t size);
 
   MemoryProtection_t ReprotectMemory(void* pointer, std::size_t size, MemoryProtection_t newProtection);
 

@@ -18,9 +18,10 @@ A collection of utilities for game hacking
   * Full unix support?!
 
 * GUI
-  * DirectX11 impl
-  * Win32Input impl
-  * ImGui
+  * [ ] Call exit lmao
+  * [x] DirectX11 impl
+  * [x] Win32Input impl
+  * [x] ImGui
   * DirectX9 impl
   * OpenGL impl
   * DirectX12 impl

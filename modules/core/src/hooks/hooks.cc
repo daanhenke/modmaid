@@ -17,10 +17,10 @@ namespace modmaid::hooks
 
   HookHandle RegisterVTableHook(void** vtable, std::size_t index, void** original, void* hook)
   {
-    memory::ReprotectMemory(vtable, (index + 1) * sizeof(void*), memory::MemoryProtection::All);
+    memory::ReprotectMemory(&vtable[index], sizeof(void*), memory::MemoryProtection::All);
 
-    *original = vtable[0];
-    vtable[0] = hook;
+    *original = vtable[index];
+    vtable[index] = hook;
 
     auto handle = AllocateHookHandle();
     (*GetMap())[handle] =
@@ -30,7 +30,7 @@ namespace modmaid::hooks
       .VTableHook = {
         .VTable = vtable,
         .Index = index,
-        .Original = vtable[0],
+        .Original = *original,
         .Hook = hook,
       }
     };
